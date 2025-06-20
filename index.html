@@ -11,11 +11,10 @@
         }
         
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(to bottom, #87CEEB 0%, #98FB98 30%, #90EE90 60%, #8FBC8F 100%);
             min-height: 100vh;
-            padding: 40px 20px;
+            padding: 20px;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            position: relative;
             overflow-x: auto;
         }
         
@@ -27,421 +26,477 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: -1;
+            z-index: 0;
         }
         
-        .floating-shape {
+        .leaf {
             position: absolute;
-            opacity: 0.1;
-            animation: float 6s ease-in-out infinite;
+            width: 20px;
+            height: 20px;
+            background: #228B22;
+            border-radius: 0 100% 0 100%;
+            opacity: 0.3;
+            animation: float 8s ease-in-out infinite;
         }
         
-        .floating-shape:nth-child(1) {
-            top: 10%;
-            left: 10%;
-            width: 80px;
-            height: 80px;
-            background: #fff;
-            border-radius: 50%;
-            animation-delay: 0s;
-        }
-        
-        .floating-shape:nth-child(2) {
-            top: 20%;
-            right: 15%;
-            width: 60px;
-            height: 60px;
-            background: #fff;
-            transform: rotate(45deg);
-            animation-delay: 2s;
-        }
-        
-        .floating-shape:nth-child(3) {
-            bottom: 20%;
-            left: 20%;
-            width: 100px;
-            height: 100px;
-            background: #fff;
-            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-            animation-delay: 4s;
-        }
+        .leaf:nth-child(1) { top: 10%; left: 5%; animation-delay: 0s; }
+        .leaf:nth-child(2) { top: 20%; right: 10%; animation-delay: 2s; }
+        .leaf:nth-child(3) { top: 60%; left: 15%; animation-delay: 4s; }
+        .leaf:nth-child(4) { top: 40%; right: 20%; animation-delay: 6s; }
+        .leaf:nth-child(5) { top: 80%; left: 25%; animation-delay: 1s; }
+        .leaf:nth-child(6) { top: 30%; right: 5%; animation-delay: 3s; }
         
         @keyframes float {
             0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(10deg); }
+            33% { transform: translateY(-15px) rotate(5deg); }
+            66% { transform: translateY(10px) rotate(-3deg); }
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            z-index: 1;
         }
         
         h1 {
             text-align: center;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 50px;
+            color: #2F4F2F;
+            margin-bottom: 30px;
             font-size: 42px;
             font-weight: 700;
-            text-shadow: none;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
             position: relative;
         }
         
         h1::after {
-            content: '';
+            content: '🌳';
             position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 4px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            border-radius: 2px;
+            right: -60px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 40px;
         }
         
-        .tree {
+        h1::before {
+            content: '🌳';
+            position: absolute;
+            left: -60px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 40px;
+        }
+        
+        /* Tree Structure - Growing from bottom to top */
+        .family-tree {
+            display: flex;
+            flex-direction: column-reverse;
+            align-items: center;
+            position: relative;
+            min-height: 800px;
+        }
+        
+        .generation {
             display: flex;
             justify-content: center;
+            align-items: flex-end;
+            margin: 40px 0;
             position: relative;
-        }
-        
-        .tree ul {
-            padding-top: 30px;
-            position: relative;
-            transition: all 0.5s ease;
-            list-style-type: none;
-        }
-        
-        .tree li {
-            float: left;
-            text-align: center;
-            list-style-type: none;
-            position: relative;
-            padding: 25px 8px 0 8px;
-            transition: all 0.5s ease;
-        }
-        
-        /* Enhanced connecting lines */
-        .tree li::before, .tree li::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 50%;
-            border-top: 3px solid #c5cae9;
-            width: 50%;
-            height: 25px;
-            transition: all 0.3s ease;
-        }
-        
-        .tree li::after {
-            right: auto;
-            left: 50%;
-            border-left: 3px solid #c5cae9;
-        }
-        
-        .tree li:only-child::after, .tree li:only-child::before {
-            display: none;
-        }
-        
-        .tree li:only-child {
-            padding-top: 0;
-        }
-        
-        .tree li:first-child::before, .tree li:last-child::after {
-            border: 0 none;
-        }
-        
-        .tree li:last-child::before {
-            border-right: 3px solid #c5cae9;
-            border-radius: 0 8px 0 0;
-        }
-        
-        .tree li:first-child::after {
-            border-radius: 8px 0 0 0;
-        }
-        
-        .tree ul ul::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 50%;
-            border-left: 3px solid #c5cae9;
-            width: 0;
-            height: 25px;
-            transition: all 0.3s ease;
-        }
-        
-        .tree li a {
-            border: none;
-            padding: 14px 18px;
-            text-decoration: none;
-            color: #333;
-            font-size: 15px;
-            font-weight: 600;
-            display: inline-block;
-            border-radius: 12px;
-            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            min-width: 180px;
-            position: relative;
-            border: 2px solid transparent;
-            backdrop-filter: blur(5px);
-        }
-        
-        .tree li a::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            border-radius: 15px;
-            padding: 2px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            mask-composite: exclude;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .tree li a:hover::before {
-            opacity: 1;
-        }
-        
-        .tree li a:hover {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: #fff;
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
-        }
-        
-        .tree li a:hover+ul li::after, 
-        .tree li a:hover+ul li::before, 
-        .tree li a:hover+ul::before, 
-        .tree li a:hover+ul ul::before {
-            border-color: #667eea;
-            border-width: 4px;
-        }
-        
-        .generation-container {
-            position: relative;
+            width: 100%;
         }
         
         .generation-label {
             position: absolute;
-            left: -150px;
-            font-size: 14px;
-            color: #667eea;
-            font-weight: 600;
-            background: rgba(255, 255, 255, 0.9);
+            left: -120px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(47, 79, 47, 0.9);
+            color: white;
             padding: 8px 15px;
             border-radius: 20px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            font-size: 14px;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
             backdrop-filter: blur(5px);
-            border: 1px solid rgba(102, 126, 234, 0.2);
         }
         
-        /* Add sparkle animation */
-        @keyframes sparkle {
-            0%, 100% { opacity: 0; transform: scale(0.8); }
-            50% { opacity: 1; transform: scale(1.2); }
+        .person {
+            position: relative;
+            margin: 0 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         
-        .sparkle {
+        .person-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f0f8f0 100%);
+            border: 3px solid #228B22;
+            border-radius: 20px;
+            padding: 15px 20px;
+            text-decoration: none;
+            color: #2F4F2F;
+            font-size: 16px;
+            font-weight: 600;
+            box-shadow: 0 8px 25px rgba(34, 139, 34, 0.3);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            min-width: 180px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .person-card::before {
+            content: '';
             position: absolute;
-            width: 4px;
-            height: 4px;
-            background: #667eea;
-            border-radius: 50%;
-            animation: sparkle 2s infinite;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            background: linear-gradient(45deg, #32CD32, #228B22, #90EE90, #006400);
+            border-radius: 25px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
         
-        .sparkle:nth-child(1) { top: 10%; left: 20%; animation-delay: 0s; }
-        .sparkle:nth-child(2) { top: 30%; right: 25%; animation-delay: 0.5s; }
-        .sparkle:nth-child(3) { bottom: 20%; left: 30%; animation-delay: 1s; }
-        .sparkle:nth-child(4) { bottom: 40%; right: 15%; animation-delay: 1.5s; }
+        .person-card:hover::before {
+            opacity: 1;
+        }
+        
+        .person-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(34, 139, 34, 0.5);
+            background: linear-gradient(135deg, #f0fff0 0%, #e6ffe6 100%);
+        }
+        
+        /* Tree Trunk and Branches */
+        .tree-trunk {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 120px;
+            background: linear-gradient(to top, #8B4513 0%, #A0522D 50%, #CD853F 100%);
+            border-radius: 20px 20px 5px 5px;
+            box-shadow: inset -5px 0 10px rgba(0,0,0,0.3), inset 5px 0 10px rgba(255,255,255,0.1);
+        }
+        
+        .tree-trunk::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -15px;
+            right: -15px;
+            height: 30px;
+            background: #228B22;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        /* Connecting branches */
+        .branch {
+            position: absolute;
+            background: #8B4513;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+        
+        /* Vertical branches from trunk */
+        .main-branch {
+            width: 8px;
+            height: 80px;
+            bottom: 120px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        /* Horizontal branches connecting to family members */
+        .connecting-branch {
+            height: 6px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: linear-gradient(to right, #8B4513, #A0522D);
+        }
+        
+        /* Children branches */
+        .children-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            position: relative;
+            margin-top: 60px;
+        }
+        
+        .children-container::before {
+            content: '';
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 8px;
+            height: 30px;
+            background: #8B4513;
+            border-radius: 4px;
+        }
+        
+        .children-container::after {
+            content: '';
+            position: absolute;
+            top: -30px;
+            left: 20%;
+            right: 20%;
+            height: 6px;
+            background: #8B4513;
+            border-radius: 3px;
+        }
+        
+        /* Individual child branches */
+        .person::before {
+            content: '';
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 30px;
+            background: #8B4513;
+            border-radius: 3px;
+        }
+        
+        /* Generation specific styling */
+        .gen-7 { order: 1; } /* Youngest generation at bottom */
+        .gen-6 { order: 2; }
+        .gen-5 { order: 3; }
+        .gen-4 { order: 4; }
+        .gen-3 { order: 5; }
+        .gen-2 { order: 6; }
+        .gen-1 { order: 7; } /* Oldest generation at top */
         
         /* Responsive design */
-        @media (max-width: 1024px) {
+        @media (max-width: 1200px) {
             .generation-label {
-                left: -120px;
+                left: -100px;
                 font-size: 12px;
                 padding: 6px 12px;
             }
-        }
-        
-        @media (max-width: 768px) {
-            .container {
-                padding: 20px;
-                margin: 10px;
+            
+            .person {
+                margin: 0 15px;
             }
             
-            h1 {
-                font-size: 32px;
-                margin-bottom: 30px;
-            }
-            
-            .tree {
-                overflow-x: auto;
-                padding-bottom: 20px;
-            }
-            
-            .generation-label {
-                position: static;
-                display: inline-block;
-                margin: 10px 0;
-                left: auto;
-            }
-            
-            .tree li a {
+            .person-card {
                 min-width: 150px;
                 font-size: 14px;
                 padding: 12px 16px;
             }
         }
         
-        /* Add loading animation */
-        .tree {
-            animation: fadeInUp 1s ease-out;
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 28px;
+                margin-bottom: 20px;
+            }
+            
+            h1::before, h1::after {
+                font-size: 24px;
+            }
+            
+            .generation {
+                flex-wrap: wrap;
+                margin: 30px 0;
+            }
+            
+            .generation-label {
+                position: relative;
+                left: auto;
+                margin-bottom: 15px;
+                order: -1;
+            }
+            
+            .person {
+                margin: 10px;
+            }
+            
+            .person-card {
+                min-width: 140px;
+                font-size: 13px;
+            }
+            
+            .children-container {
+                gap: 20px;
+                margin-top: 40px;
+            }
         }
         
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
+        /* Loading animations */
+        .person {
+            animation: growUp 1s ease-out forwards;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+        
+        .gen-7 .person { animation-delay: 0.1s; }
+        .gen-6 .person { animation-delay: 0.3s; }
+        .gen-5 .person { animation-delay: 0.5s; }
+        .gen-4 .person { animation-delay: 0.7s; }
+        .gen-3 .person { animation-delay: 0.9s; }
+        .gen-2 .person { animation-delay: 1.1s; }
+        .gen-1 .person { animation-delay: 1.3s; }
+        
+        @keyframes growUp {
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
         
-        .tree li {
-            animation: slideIn 0.6s ease-out forwards;
-            opacity: 0;
+        /* Tree roots effect */
+        .tree-roots {
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 40px;
+            background: radial-gradient(ellipse at center, #8B4513 0%, transparent 70%);
+            opacity: 0.6;
         }
         
-        .tree li:nth-child(1) { animation-delay: 0.1s; }
-        .tree li:nth-child(2) { animation-delay: 0.2s; }
-        .tree li:nth-child(3) { animation-delay: 0.3s; }
-        .tree li:nth-child(4) { animation-delay: 0.4s; }
+        .tree-roots::before,
+        .tree-roots::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            width: 80px;
+            height: 20px;
+            background: #8B4513;
+            border-radius: 40px;
+            opacity: 0.4;
+        }
         
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateX(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
+        .tree-roots::before {
+            left: -60px;
+            transform: rotate(-15deg);
+        }
+        
+        .tree-roots::after {
+            right: -60px;
+            transform: rotate(15deg);
         }
     </style>
 </head>
 <body>
     <div class="bg-decoration">
-        <div class="floating-shape"></div>
-        <div class="floating-shape"></div>
-        <div class="floating-shape"></div>
-        <div class="sparkle"></div>
-        <div class="sparkle"></div>
-        <div class="sparkle"></div>
-        <div class="sparkle"></div>
+        <div class="leaf"></div>
+        <div class="leaf"></div>
+        <div class="leaf"></div>
+        <div class="leaf"></div>
+        <div class="leaf"></div>
+        <div class="leaf"></div>
     </div>
     
     <div class="container">
         <h1>सुमित यादव वंश ( Sumit Yadav Family Tree)</h1>
         
-        <div class="generation-container">
-            <div class="generation-label" style="top: 50px;">1st Generation</div>
-            <div class="generation-label" style="top: 160px;">2nd Generation</div>
-            <div class="generation-label" style="top: 270px;">3rd Generation</div>
-            <div class="generation-label" style="top: 380px;">4th Generation</div>
-            <div class="generation-label" style="top: 490px;">5th Generation</div>
-            <div class="generation-label" style="top: 600px;">6th Generation</div>
-            <div class="generation-label" style="top: 710px;">7th Generation</div>
-            <div class="generation-label" style="top: 820px;">8th Generation</div>
-        </div>
-        
-        <div class="tree">
-            <ul>
-                <li>
-                    <a href="#">लालजी यादव</a>
-                    <ul>
-                        <li>
-                            <a href="#">बरोहन यादव</a>
-                            <ul>
-                                <li>
-                                    <a href="#">गढई यादव</a>
-                                    <ul>
-                                        <li>
-                                            <a href="https://www.facebook.com/photo.php?fbid=1727523260868830&set=pb.100008335182748.-2207520000&type=3">राजदेव यादव</a>
-                                            <ul>
-                                                <li>
-                                                    <a href="https://www.facebook.com/photo.php?fbid=1727523260868830&set=pb.100008335182748.-2207520000&type=3">जीरेखन यादव</a>
-                                                    <ul>
-                                                        <li>
-                                                            <a href="https://photos.app.goo.gl/CqfGH989VNPn647A9">बिन्देश्वर यादव</a>
-                                                            <ul>
-                                                                <li><a href="https://amityadav7.com.np">अमित यादव</a></li>
-                                                                <li><a href="https://sumityadav.com.np">सुमित यादव</a></li>
-                                                            </ul>
-                                                        </li>
-                                                        <li>
-                                                            <a href="https://photos.app.goo.gl/VxGym3oHhi78zD6S6">चन्देश्वर यादव</a>
-                                                            <ul>
-                                                                <li><a href="https://photos.app.goo.gl/69ko3peB6nq8kQqF8">प्रतिक यादव</a></li>
-                                                            </ul>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                                <li>
-                                                    <a href="#">देव सरन यादव</a>
-                                                    <ul>
-                                                        <li>
-                                                            <a href="#">राम सागर यादव</a>
-                                                            <ul>
-                                                                <li><a href="#">केशव यादव</a></li>
-                                                                <li><a href="#">मुकेश यादव</a></li>
-                                                            </ul>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
+        <div class="family-tree">
+            <!-- 1st Generation (Top/Oldest) -->
+            <div class="generation gen-1">
+                <div class="generation-label">1st Generation</div>
+                <div class="person">
+                    <a href="#" class="person-card">लालजी यादव</a>
+                </div>
+            </div>
+            
+            <!-- 2nd Generation -->
+            <div class="generation gen-2">
+                <div class="generation-label">2nd Generation</div>
+                <div class="person">
+                    <a href="#" class="person-card">बरोहन यादव</a>
+                </div>
+            </div>
+            
+            <!-- 3rd Generation -->
+            <div class="generation gen-3">
+                <div class="generation-label">3rd Generation</div>
+                <div class="person">
+                    <a href="#" class="person-card">गढई यादव</a>
+                </div>
+            </div>
+            
+            <!-- 4th Generation -->
+            <div class="generation gen-4">
+                <div class="generation-label">4th Generation</div>
+                <div class="person">
+                    <a href="https://www.facebook.com/photo.php?fbid=1727523260868830&set=pb.100008335182748.-2207520000&type=3" class="person-card">राजदेव यादव</a>
+                </div>
+            </div>
+            
+            <!-- 5th Generation -->
+            <div class="generation gen-5">
+                <div class="generation-label">5th Generation</div>
+                <div class="person">
+                    <a href="https://www.facebook.com/photo.php?fbid=1727523260868830&set=pb.100008335182748.-2207520000&type=3" class="person-card">जीरेखन यादव</a>
+                </div>
+                <div class="person">
+                    <a href="#" class="person-card">देव सरन यादव</a>
+                </div>
+            </div>
+            
+            <!-- 6th Generation -->
+            <div class="generation gen-6">
+                <div class="generation-label">6th Generation</div>
+                <div class="person">
+                    <a href="https://photos.app.goo.gl/CqfGH989VNPn647A9" class="person-card">बिन्देश्वर यादव</a>
+                </div>
+                <div class="person">
+                    <a href="https://photos.app.goo.gl/VxGym3oHhi78zD6S6" class="person-card">चन्देश्वर यादव</a>
+                </div>
+                <div class="person">
+                    <a href="#" class="person-card">राम सागर यादव</a>
+                </div>
+            </div>
+            
+            <!-- 7th Generation (Bottom/Youngest) -->
+            <div class="generation gen-7">
+                <div class="generation-label">7th Generation</div>
+                <div class="person">
+                    <a href="https://amityadav7.com.np" class="person-card">अमित यादव</a>
+                </div>
+                <div class="person">
+                    <a href="https://sumityadav.com.np" class="person-card">सुमित यादव</a>
+                </div>
+                <div class="person">
+                    <a href="https://photos.app.goo.gl/69ko3peB6nq8kQqF8" class="person-card">प्रतिक यादव</a>
+                </div>
+                <div class="person">
+                    <a href="#" class="person-card">केशव यादव</a>
+                </div>
+                <div class="person">
+                    <a href="#" class="person-card">मुकेश यादव</a>
+                </div>
+            </div>
+            
+            <!-- Tree trunk and roots -->
+            <div class="tree-trunk"></div>
+            <div class="tree-roots"></div>
         </div>
     </div>
 
     <script>
         $(document).ready(function() {
-            // Add interactive hover effects for the entire branch
-            $('.tree li a').hover(
+            // Add interactive effects
+            $('.person-card').hover(
                 function() {
-                    $(this).closest('li').find('ul').addClass('highlight-branch');
+                    $(this).closest('.person').siblings().find('.person-card').css('opacity', '0.6');
                 },
                 function() {
-                    $(this).closest('li').find('ul').removeClass('highlight-branch');
+                    $('.person-card').css('opacity', '1');
                 }
             );
             
-            // Add click animation
-            $('.tree li a').click(function(e) {
+            // Click animation
+            $('.person-card').click(function(e) {
                 if ($(this).attr('href') === '#') {
                     e.preventDefault();
                 }
@@ -449,25 +504,50 @@
                 $(this).addClass('clicked');
                 setTimeout(() => {
                     $(this).removeClass('clicked');
-                }, 200);
+                }, 300);
             });
+            
+            // Add seasonal leaves falling effect
+            function createFallingLeaf() {
+                const leaf = $('<div class="falling-leaf">🍃</div>');
+                leaf.css({
+                    position: 'fixed',
+                    top: '-50px',
+                    left: Math.random() * 100 + '%',
+                    fontSize: '20px',
+                    opacity: 0.7,
+                    zIndex: 0,
+                    pointerEvents: 'none'
+                });
+                
+                $('body').append(leaf);
+                
+                leaf.animate({
+                    top: $(window).height() + 50,
+                    left: '+=' + (Math.random() * 200 - 100)
+                }, {
+                    duration: 8000 + Math.random() * 4000,
+                    easing: 'linear',
+                    complete: function() {
+                        leaf.remove();
+                    }
+                });
+            }
+            
+            // Create falling leaves occasionally
+            setInterval(createFallingLeaf, 3000);
         });
     </script>
     
     <style>
-        .highlight-branch {
-            transform: scale(1.02);
-            transition: transform 0.3s ease;
-        }
-        
         .clicked {
-            animation: pulse 0.2s ease-in-out;
+            animation: treeShake 0.3s ease-in-out;
         }
         
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(0.95); }
-            100% { transform: scale(1); }
+        @keyframes treeShake {
+            0%, 100% { transform: translateY(-10px) scale(1.05); }
+            25% { transform: translateY(-10px) scale(1.05) rotate(2deg); }
+            75% { transform: translateY(-10px) scale(1.05) rotate(-2deg); }
         }
     </style>
 </body>
